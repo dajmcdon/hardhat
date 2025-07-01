@@ -6,18 +6,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Creating Modeling Packages With hardhat • hardhat</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Creating Modeling Packages With hardhat">
 <meta name="robots" content="noindex">
 <script defer data-domain="hardhat.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
@@ -30,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hardhat</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,6 +87,11 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/hardhat" class="external-link">hardhat</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://modeldata.tidymodels.org" class="external-link">modeldata</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'modeldata'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:datasets':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     penguins</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
 <span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
@@ -117,7 +121,7 @@ matrix, formula, and recipe inputs.</p></li>
 <p>I imagine that this comes together as a few internal pieces that
 power the user facing methods for your model.</p>
 <p><br></p>
-<p><img src="../reference/figures/Fitting.png" width="100%"></p>
+<p><img src="../reference/figures/Fitting.png" alt="A diagram for the functions of the model fitting stage. It shows a user  facing `model()` function connected to its methods for data.frame, matrix, recipe, and formula input. Those methods are all connected to the bridge function which in turn connects to the model implementation function and the model constructor." width="100%"></p>
 <p><br></p>
 <ul>
 <li>
@@ -135,7 +139,7 @@ the lower level prediction implementation functions.</p></li>
 multiple internal implementation functions that you’ll switch between,
 depending on the <code>"type"</code>.</p>
 <p><br></p>
-<p><img src="../reference/figures/Prediction.png" width="100%"></p>
+<p><img src="../reference/figures/Prediction.png" alt="A diagram for the functions of the model prediction stage. It shows a user  facing `predict()` function connected to its method. The method is connected to the bridge function which in turn connects to the implementation functions for the different prediction types, here class and probability predictions." width="100%"></p>
 <p><br></p>
 <p>The end result is a single high level modeling function that has
 methods for multiple different “interfaces”, and a corresponding predict
@@ -226,7 +230,7 @@ at the top, and only prints out the custom elements (i.e. not the
 <code class="sourceCode R"><span><span class="va">manual_model</span> <span class="op">&lt;-</span> <span class="fu">new_simple_lm</span><span class="op">(</span><span class="fl">1</span>, <span class="st">"my_coef"</span>, <span class="fu"><a href="../reference/default_xy_blueprint.html">default_xy_blueprint</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">manual_model</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -237,13 +241,13 @@ at the top, and only prints out the custom elements (i.e. not the
 <span><span class="co">#&gt; [1] "coefs"      "coef_names" "blueprint"</span></span>
 <span></span>
 <span><span class="va">manual_model</span><span class="op">$</span><span class="va">blueprint</span></span>
-<span><span class="co">#&gt; XY blueprint: </span></span>
-<span><span class="co">#&gt;  </span></span>
-<span><span class="co">#&gt; # Predictors: 0 </span></span>
-<span><span class="co">#&gt;   # Outcomes: 0 </span></span>
-<span><span class="co">#&gt;    Intercept: FALSE </span></span>
-<span><span class="co">#&gt; Novel Levels: FALSE </span></span>
-<span><span class="co">#&gt;  Composition: tibble</span></span></code></pre></div>
+<span><span class="co">#&gt; XY blueprint:</span></span>
+<span><span class="co">#&gt; # Predictors: 0</span></span>
+<span><span class="co">#&gt; # Outcomes: 0</span></span>
+<span><span class="co">#&gt; Intercept: FALSE</span></span>
+<span><span class="co">#&gt; Novel Levels: FALSE</span></span>
+<span><span class="co">#&gt; Composition: tibble</span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="model-fitting-implementation">Model Fitting Implementation<a class="anchor" aria-label="anchor" href="#model-fitting-implementation"></a>
@@ -334,7 +338,7 @@ bridge to run a model.</p>
 <span><span class="va">processed_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mold.html">mold</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">penguins</span><span class="op">[</span><span class="st">"body_mass_g"</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">penguins</span><span class="op">$</span><span class="va">bill_length_mm</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">simple_lm_bridge</span><span class="op">(</span><span class="va">processed_1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1]  0.003754612 24.908763524 34.817525835 28.447942512</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -343,7 +347,7 @@ bridge to run a model.</p>
 <span><span class="co">#&gt; [4] "speciesGentoo"</span></span>
 <span></span>
 <span><span class="fu">simple_lm_bridge</span><span class="op">(</span><span class="va">processed_2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1] 0.01022951</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -412,7 +416,7 @@ default method with a nice error message for unknown types.</p>
 <span></span>
 <span><span class="co"># Vector outcome</span></span>
 <span><span class="fu">simple_lm</span><span class="op">(</span><span class="va">predictors</span>, <span class="va">outcomes_vec</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1] 110.88151 -40.16918</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -421,7 +425,7 @@ default method with a nice error message for unknown types.</p>
 <span></span>
 <span><span class="co"># 1 column data frame outcome</span></span>
 <span><span class="fu">simple_lm</span><span class="op">(</span><span class="va">predictors</span>, <span class="va">outcomes_df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1] 110.88151 -40.16918</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -430,7 +434,7 @@ default method with a nice error message for unknown types.</p>
 <span></span>
 <span><span class="co"># Formula interface</span></span>
 <span><span class="fu">simple_lm</span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">~</span> <span class="va">bill_length_mm</span> <span class="op">+</span> <span class="va">bill_depth_mm</span>, <span class="va">penguins</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1] 110.88151 -40.16918</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -444,7 +448,7 @@ default method with a nice error message for unknown types.</p>
 <span><span class="co"># - Log a predictor</span></span>
 <span><span class="co"># - Generate dummy variables for factors</span></span>
 <span><span class="fu">simple_lm</span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">bill_length_mm</span><span class="op">)</span> <span class="op">+</span> <span class="va">species</span>, <span class="va">penguins</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1]   3985.047 -10865.973 -11753.182 -10290.188</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -453,12 +457,12 @@ default method with a nice error message for unknown types.</p>
 <span><span class="co">#&gt; [4] "speciesGentoo"</span></span>
 <span></span>
 <span><span class="co"># Same, but with a recipe</span></span>
-<span><span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">~</span> <span class="va">bill_length_mm</span> <span class="op">+</span> <span class="va">species</span>, <span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_log.html" class="external-link">step_log</a></span><span class="op">(</span><span class="va">bill_length_mm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">~</span> <span class="va">bill_length_mm</span> <span class="op">+</span> <span class="va">species</span>, <span class="va">penguins</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_log.html" class="external-link">step_log</a></span><span class="op">(</span><span class="va">bill_length_mm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_dummy.html" class="external-link">step_dummy</a></span><span class="op">(</span><span class="va">species</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">simple_lm</span><span class="op">(</span><span class="va">rec</span>, <span class="va">penguins</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1]   3985.047 -10865.973 -11753.182 -10290.188</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -505,7 +509,7 @@ automatically.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># By default an intercept is included</span></span>
 <span><span class="fu">simple_lm</span><span class="op">(</span><span class="va">predictors</span>, <span class="va">outcomes_df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1] 3413.45185   74.81263 -145.50718</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -514,7 +518,7 @@ automatically.</p>
 <span></span>
 <span><span class="co"># But the user can turn this off</span></span>
 <span><span class="fu">simple_lm</span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">bill_length_mm</span><span class="op">)</span> <span class="op">+</span> <span class="va">species</span>, <span class="va">penguins</span>, intercept <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;simple_lm&gt; </span></span>
+<span><span class="co">#&gt; &lt;simple_lm&gt;</span></span>
 <span><span class="co">#&gt; $coefs</span></span>
 <span><span class="co">#&gt; [1]   3985.047 -10865.973 -11753.182 -10290.188</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -720,12 +724,12 @@ expect.</p>
 <code class="sourceCode R"><span><span class="co"># `new_data` isn't a data frame</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `forge()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> The class of `new_data`, 'factor', is not recognized.</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `forge()` method provided for a <span style="color: #0000BB;">&lt;factor&gt;</span> object.</span></span>
 <span></span>
 <span><span class="co"># Missing a required column</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">penguins</span>, select <span class="op">=</span> <span class="op">-</span><span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `validate_column_names()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> The following required columns are missing: 'body_mass_g'.</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `forge()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> The required column <span style="color: #0000BB;">"body_mass_g"</span> is missing.</span></span>
 <span></span>
 <span><span class="co"># In this case, 'species' is a character, </span></span>
 <span><span class="co"># but can be losslessy converted to a factor.</span></span>
@@ -756,8 +760,8 @@ expect.</p>
 <span><span class="va">penguins_chr_bad_species</span><span class="op">$</span><span class="va">species</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"new_level"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">penguins_chr_bad_species</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Novel levels found in column 'species': 'new_level'. The levels</span></span>
-<span><span class="co">#&gt; have been removed, and values have been coerced to 'NA'.</span></span>
+<span><span class="co">#&gt; Warning: Novel level found in column <span style="color: #0000BB;">"species"</span>: <span style="color: #0000BB;">"new_level"</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The level has been removed, and values have been coerced to <span style="color: #0000BB;">&lt;NA&gt;</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 333 × 1</span></span></span>
 <span><span class="co">#&gt;    .pred</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -796,7 +800,7 @@ expect.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
   </div></footer>
